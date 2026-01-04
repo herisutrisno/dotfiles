@@ -1,0 +1,21 @@
+return {
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      preset = "classic", -- Switches to the classic preset, change "helix" if you want to be appear at right side
+    },
+  },
+  {
+    "nvim-mini/mini.icons",
+    version = false,
+    config = function()
+      require("mini.icons").setup()
+    end,
+  },
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+    opts = {},
+  },
+}
