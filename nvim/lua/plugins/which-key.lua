@@ -9,22 +9,11 @@ return {
       spec = {
         {
           mode = { "n", "x" },
-          { "<leader><tab>", group = "tabs" },
-          { "<leader>c", group = "code" },
-          { "<leader>d", group = "debug" },
-          { "<leader>dp", group = "profiler" },
-          { "<leader>f", group = "file/find" },
-          { "<leader>g", group = "git" },
-          { "<leader>gh", group = "hunks" },
-          { "<leader>q", group = "quit/session" },
-          { "<leader>s", group = "search" },
-          { "<leader>u", group = "ui" },
-          { "<leader>x", group = "diagnostics/quickfix" },
-          { "[", group = "prev" },
-          { "]", group = "next" },
-          { "g", group = "goto" },
-          { "gs", group = "surround" },
-          { "z", group = "fold" },
+          -- Navigation & Layout
+          {
+            "<leader><tab>",
+            group = "tabs",
+          },
           {
             "<leader>b",
             group = "buffer",
@@ -40,8 +29,80 @@ return {
               return require("which-key.extras").expand.win()
             end,
           },
-          -- better descriptions
+
+          -- Coding & Tools
+          {
+            "<leader>c",
+            group = "code",
+          },
+          {
+            "<leader>d",
+            group = "debug",
+          },
+          {
+            "<leader>dp",
+            group = "profiler",
+          },
+          {
+            "<leader>f",
+            group = "file/find",
+          },
+
+          -- Version Control
+          {
+            "<leader>g",
+            group = "git",
+          },
+          {
+            "<leader>gh",
+            group = "hunks",
+          },
+
+          -- Content & Session
+          {
+            "<leader>m",
+            group = "markdown",
+            icon = { cat = "file", name = "README.md" },
+          },
+          {
+            "<leader>q",
+            group = "quit/session",
+          }, -- Power/Exit icon
+          {
+            "<leader>s",
+            group = "search",
+          },
+          {
+            "<leader>u",
+            group = "ui",
+          },
+          {
+            "<leader>x",
+            group = "diagnostics/quickfix",
+          },
+
+          -- Motion & Editing
+          { "[", group = "prev" },
+          { "]", group = "next" },
+          {
+            "g",
+            group = "goto",
+          },
+          {
+            "gs",
+            group = "surround",
+          },
+          { "z", group = "fold" },
+
+          -- Better descriptions
           { "gx", desc = "Open with system app" },
+
+          -- Split terminal
+          {
+            "<leader>t",
+            group = "terminal",
+            icon = { cat = "filetype", name = "bash" },
+          },
         },
       },
     },
@@ -68,7 +129,6 @@ return {
         LazyVim.warn(
           "which-key: opts.defaults is deprecated. Please use opts.spec instead."
         )
-        wk.register(opts.defaults)
       end
     end,
   },

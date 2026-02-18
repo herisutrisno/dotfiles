@@ -3,6 +3,7 @@
 -- Add any additional keymaps here
 local keymaps = vim.keymap
 local opts = { noremap = true, silent = true }
+local wk = require("which-key")
 
 -- Increment/decrement
 keymaps.set("n", "+", "<C-a>")
@@ -37,15 +38,15 @@ keymaps.set("n", "<C-w><right>", "<C-w>>")
 keymaps.set("n", "<C-w><up>", "<C-w>+")
 keymaps.set("n", "<C-w><down>", "<C-w>-")
 
--- Jump to the next Diagnostics
-keymaps.set("n", "<C-j>", function()
-  vim.diagnostic.goto_next()
-end, opts)
+-- Jump to the next Diagnostic
+vim.keymap.set("n", "<C-j>", function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Next Diagnostic" })
 
 -- Jump to the previous Diagnostic
-keymaps.set("n", "<C-k>", function()
-  vim.diagnostic.goto_prev()
-end, opts)
+vim.keymap.set("n", "<C-k>", function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Prev Diagnostic" })
 
 vim.keymap.set("n", "<leader>rln", function()
   local relative_enabled = vim.wo.relativenumber
@@ -67,13 +68,40 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
--- Open terminal vertically <leader>tv
-vim.keymap.set(
-  "n",
-  "<Leader>tv",
-  ":vert term<CR>",
-  { noremap = true, silent = true }
-)
+-- split terminal horizontal or vertical
+wk.add({
+  -- Normal mode only
+  -- Vertical Terminal
+  {
+    "<leader>tv",
+    ":vert term<CR>",
+    desc = "Vertical Split",
+    mode = "n",
+    icon = { cat = "filetype", name = "sh" },
+  },
+
+  -- Horizontal Terminal
+  {
+    "<leader>th",
+    ":split | term<CR>",
+    desc = "Horizontal Split",
+    mode = "n",
+    icon = { cat = "filetype", name = "bash" },
+  },
+
+  -- Terminal mode only
+  { "<Esc>", [[<C-\><C-n>]], desc = "Exit Terminal Mode", mode = "t" },
+
+  -- Both Normal and Terminal modes
+  {
+    "<leader>tc",
+    [[<C-\><C-n>:q!<CR>]],
+    desc = "Close Terminal",
+    mode = { "n", "t" },
+    ---@diagnostic disable-next-line: assign-type-mismatch
+    icon = { cat = "os", name = "linux" }, -- Power/Exit icon
+  },
+})
 
 -- JS Runner Config
 
@@ -211,3 +239,35 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end, 150) -- small delay to allow NERDTree redraw
   end,
 })
+
+-- Toggling inlay Hints aka lsp
+vim.keymap.set("n", "<leader>T", function()
+  -- Correct, modern syntax for toggling
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Toggle LSP inlay hints" })
+
+-- Markdown commands
+local function map_markdown()
+  --  local noop = function() end
+  -- vim.keymap.set("n", "<leader>m", noop, { desc = "📝 Markdown" })
+  vim.keymap.set(
+    "n",
+    "<leader>mp",
+    "<cmd>RenderMarkdown preview<CR>",
+    { desc = "Markdown: Preview Split" }
+  )
+  vim.keymap.set(
+    "n",
+    "<leader>mt",
+    "<cmd>RenderMarkdown toggle<CR>",
+    { desc = "Markdown: Toggle Inline Render" }
+  )
+  vim.keymap.set(
+    "n",
+    "<leader>mb",
+    "<cmd>MarkdownPreview<CR>",
+    { desc = "Markdown: Open in Browser" }
+  )
+end
+
+map_markdown()

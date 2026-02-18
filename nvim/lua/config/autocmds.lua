@@ -16,3 +16,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt.conceallevel = 0
   end,
 })
+
+-- vim.api.nvim_create_user_command("RMPreview", function()
+--   require("render-markdown").preview() -- opens preview split
+-- end, { desc = "Render Markdown preview" })
+--
+-- vim.api.nvim_create_user_command("RMToggle", function()
+--   require("render-markdown").toggle() -- toggle inline rendering
+-- end, { desc = "Toggle Render Markdown" })
