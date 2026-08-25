@@ -1,0 +1,65 @@
+{
+    // ─────────────────────────────
+    // Pylance type checking
+    // ─────────────────────────────
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.autoImportCompletions": true,
+
+
+    // ─────────────────────────────
+    // Ruff formatter
+    // ─────────────────────────────
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",           // Run Ruff fixes on save
+            "source.organizeImports.ruff": "explicit" // Sort imports via Ruff
+        }
+    },
+
+    // ─────────────────────────────
+    // provide extra paths for specific service
+    // ─────────────────────────────
+    "python.analysis.extraPaths": [
+        "./aisearch",
+        "./cve",
+        "./dashboard",
+        "./sighting",
+        "./ingestion",
+        "./taskwarden",
+    ],
+
+    "python.analysis.exclude": [
+        "**/__pycache__",
+        ".git",
+        "**/scripts",
+        "**/node_modules",
+        "**/.*"
+    ],
+
+    // ─────────────────────────────
+    // TOML files (e.g., pyproject.toml)
+    // ─────────────────────────────
+    "[toml]": {
+        "editor.formatOnSave": false            // Prevent auto-formatting
+    },
+
+    // ─────────────────────────────
+    // General editor settings
+    // ─────────────────────────────
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.autoSave": "onFocusChange",
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": true,
+    "python-envs.pythonProjects": [
+        {
+            "path": "",
+            "envManager": "ms-python.python:conda",
+            "packageManager": "ms-python.python:conda"
+        }
+    ],
+}
